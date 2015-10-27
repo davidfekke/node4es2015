@@ -15,7 +15,7 @@ myMap.delete(a1);
 console.log(myMap.has(a1));
 
 var mySet = new WeakSet();
-var c1 = {};
+var c1 = { foo: "bar" };
 var c2 = {};
 var c3 = {};
 
