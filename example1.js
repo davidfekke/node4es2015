@@ -6,6 +6,7 @@ class MeetupGroup {
 	}
 	
 	Say() {
+		// Notice use of string templates.
 		console.log(`This the ${this.name} meetup group!`);
 	}
 }

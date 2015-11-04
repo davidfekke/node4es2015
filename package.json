@@ -1,0 +1,27 @@
+{
+  "name": "node4es2015",
+  "version": "1.0.0",
+  "description": "Examples for Node.js 4.X",
+  "main": "example1.js",
+  "dependencies": {
+    "bluebird": "^3.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidfekke/node4es2015.git"
+  },
+  "keywords": [
+    "Node.js4.X",
+    "Node.js"
+  ],
+  "author": "David Fekke <david@fekke.com> (http://fek.io)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/davidfekke/node4es2015/issues"
+  },
+  "homepage": "https://github.com/davidfekke/node4es2015#readme"
+}
