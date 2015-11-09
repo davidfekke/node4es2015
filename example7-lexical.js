@@ -9,8 +9,8 @@ var bob = {
   _name: "Bob",
   _friends: ['Tommy', 'Richard', 'Susan'],
   printFriends1() {
-	// Here we hoist the this object into that so we can use it in the closure function.
-	var that = this;
+    // Here we hoist the this object into that so we can use it in the closure function.
+    var that = this;
     this._friends.forEach(function (friend, index){
 		console.log(`${that._name}  knows  ${friend}`);	
 	});
