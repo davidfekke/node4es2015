@@ -16,11 +16,8 @@ fs.readdirAsync(rootPath).then((files) => {
 			var oldPath = rootPath + file;
 			var newPath = rootPath + file.substring(0, file.length - ext.length) + newExt;
 			console.log(newPath);
-			fs.renameAsync(oldPath, newPath).catch(err => {
-				console.error("unable to rename file");
-			});
+			fs.renameAsync(oldPath, newPath)
+				.catch(err => console.error("unable to rename file") );
 		}
 	});
-}).catch((err) => {
-	console.error("unable to read directory");
-});
+}).catch((err) => console.error("unable to read directory"));
