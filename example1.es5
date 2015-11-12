@@ -1,0 +1,28 @@
+"use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var MeetupGroup = (function () {
+    function MeetupGroup(name) {
+        this.name = name;
+    }
+    MeetupGroup.prototype.Say = function () {
+        console.log("This the " + this.name + " meetup group!");
+    };
+    return MeetupGroup;
+})();
+var JavaScriptGroup = (function (_super) {
+    __extends(JavaScriptGroup, _super);
+    function JavaScriptGroup() {
+        _super.apply(this, arguments);
+    }
+    JavaScriptGroup.prototype.Say = function () {
+        _super.prototype.Say.call(this);
+        console.log('And is a JavaScript User Group.');
+    };
+    return JavaScriptGroup;
+})(MeetupGroup);
+var meetup = new MeetupGroup('JaxNode');
+meetup.Say();
