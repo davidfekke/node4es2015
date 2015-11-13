@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Node 4.X ES2015 Features by jaxnode</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Node 4.X ES2015 Features</h1>
+      <h2 class="project-tagline">This is a repo for the examples from November&#39;s JaxNode presentation</h2>
+      <a href="https://github.com/jaxnode/node4es2015" class="btn">View on GitHub</a>
+      <a href="https://github.com/jaxnode/node4es2015/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/jaxnode/node4es2015/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="repo-for-the-november-jaxnode-meetup-examples" class="anchor" href="#repo-for-the-november-jaxnode-meetup-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Repo for the November JaxNode meetup examples.</h1>
+
+<p>This repo contains the examples from the JaxNode November 2015 presentation.</p>
+
+<h2>
+<a id="classes" class="anchor" href="#classes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Classes</h2>
+
+<p>One of the more distinctive features added to ES2015 is the use of the class keyword. 
+In ES5 if you wanted to implement class style functions the syntax was rather terse. 
+In the example below you can see an example of a class inheriting from another class
+using the old syntax;</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+<span class="pl-k">var</span> __extends <span class="pl-k">=</span> (<span class="pl-v">this</span> <span class="pl-k">&amp;&amp;</span> <span class="pl-v">this</span>.__extends) <span class="pl-k">||</span> <span class="pl-k">function</span> (<span class="pl-smi">d</span>, <span class="pl-smi">b</span>) {
+    <span class="pl-k">for</span> (<span class="pl-k">var</span> p <span class="pl-k">in</span> b) <span class="pl-k">if</span> (b.hasOwnProperty(p)) d[p] <span class="pl-k">=</span> b[p];
+    <span class="pl-k">function</span> <span class="pl-en">__</span>() { <span class="pl-v">this</span>.<span class="pl-c1">constructor</span> <span class="pl-k">=</span> d; }
+    <span class="pl-c1">d</span>.<span class="pl-c1">prototype</span> <span class="pl-k">=</span> b <span class="pl-k">===</span> <span class="pl-c1">null</span> <span class="pl-k">?</span> <span class="pl-c1">Object</span>.create(b) <span class="pl-k">:</span> (<span class="pl-c1">__</span>.<span class="pl-c1">prototype</span> <span class="pl-k">=</span> b.<span class="pl-c1">prototype</span>, <span class="pl-k">new</span> <span class="pl-en">__</span>());
+};
+<span class="pl-k">var</span> MeetupGroup <span class="pl-k">=</span> (<span class="pl-k">function</span> () {
+    <span class="pl-k">function</span> <span class="pl-en">MeetupGroup</span>(<span class="pl-smi">name</span>) {
+        <span class="pl-v">this</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> name;
+    }
+    <span class="pl-c1">MeetupGroup</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">Say</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>This the <span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-v">this</span>.<span class="pl-c1">name</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> meetup group!<span class="pl-pds">"</span></span>);
+    };
+    <span class="pl-k">return</span> MeetupGroup;
+})();
+<span class="pl-k">var</span> JavaScriptGroup <span class="pl-k">=</span> (<span class="pl-k">function</span> (<span class="pl-smi">_super</span>) {
+    __extends(JavaScriptGroup, _super);
+    <span class="pl-k">function</span> <span class="pl-en">JavaScriptGroup</span>() {
+        _super.<span class="pl-c1">apply</span>(<span class="pl-v">this</span>, arguments);
+    }
+    <span class="pl-c1">JavaScriptGroup</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">Say</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+        _super.<span class="pl-c1">prototype</span>.Say.<span class="pl-c1">call</span>(<span class="pl-v">this</span>);
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>And is a JavaScript User Group.<span class="pl-pds">'</span></span>);
+    };
+    <span class="pl-k">return</span> JavaScriptGroup;
+})(MeetupGroup);
+<span class="pl-k">var</span> meetup <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MeetupGroup</span>(<span class="pl-s"><span class="pl-pds">'</span>JaxNode<span class="pl-pds">'</span></span>);
+meetup.Say();</pre></div>
+
+<p>Now with the new <code>class</code> keyword, the syntax is more concise and 
+easier to read.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">class</span> <span class="pl-en">MeetupGroup</span> {
+    <span class="pl-en">constructor</span>(<span class="pl-smi">name</span>) {
+        <span class="pl-v">this</span>.<span class="pl-c1">name</span> <span class="pl-k">=</span> name;
+    }
+
+    <span class="pl-en">Say</span>() {
+        <span class="pl-c">// Notice use of string templates.</span>
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">`</span>This the <span class="pl-s1"><span class="pl-pse">${</span><span class="pl-v">this</span>.<span class="pl-c1">name</span><span class="pl-pse">}</span></span> meetup group!<span class="pl-pds">`</span></span>);
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-en">JavaScriptGroup</span> <span class="pl-k">extends</span> <span class="pl-en">MeetupGroup</span> {
+    <span class="pl-en">Say</span>() {
+        <span class="pl-v">super</span>.Say()
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>And is a JavaScript User Group.<span class="pl-pds">'</span></span>);
+    }
+}
+
+<span class="pl-k">let</span> meetup <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MeetupGroup</span>(<span class="pl-s"><span class="pl-pds">'</span>JaxNode<span class="pl-pds">'</span></span>);
+
+meetup.Say();</pre></div>
+
+<h2>
+<a id="for-of" class="anchor" href="#for-of" aria-hidden="true"><span class="octicon octicon-link"></span></a>For-Of</h2>
+
+<p>ES2015 also adds a new way way of iterating over collections, arrays etc.
+You can now use the <code>of</code> keyword in your for loops. Previously
+For-In would ieterate over the index value and not the item. 
+There is also a <em>feature</em> that would include properties
+along with the index.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">let</span> arr <span class="pl-k">=</span> [<span class="pl-c1">3</span>, <span class="pl-c1">5</span>, <span class="pl-c1">7</span>];
+arr.foo <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">for</span> (<span class="pl-k">let</span> i <span class="pl-k">in</span> arr) {
+   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(i); <span class="pl-c">// logs "0", "1", "2", "foo"</span>
+}</pre></div>
+
+<p>Now with the For-Of syntax, this works a lot more like the C#
+foreach.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">let</span> arr <span class="pl-k">=</span> [<span class="pl-c1">3</span>, <span class="pl-c1">5</span>, <span class="pl-c1">7</span>];
+arr.foo <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">for</span> (<span class="pl-k">let</span> i <span class="pl-k">of</span> arr) {
+   <span class="pl-en">console</span>.<span class="pl-c1">log</span>(i); <span class="pl-c">// logs "3", "5", "7"</span>
+}</pre></div>
+
+<h2>
+<a id="const" class="anchor" href="#const" aria-hidden="true"><span class="octicon octicon-link"></span></a>Const</h2>
+
+<p>The <code>const</code> keyword now gives us the ability to make a variable
+immutable or readonly. This is a feature that is very popular in 
+functional languages like F#.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">const</span> <span class="pl-c1">bar</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Immutable<span class="pl-pds">'</span></span>;
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(bar);
+bar <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>mutable<span class="pl-pds">'</span></span>; <span class="pl-c">// will throw error with --use-strict</span>
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(bar);</pre></div>
+
+<h2>
+<a id="let" class="anchor" href="#let" aria-hidden="true"><span class="octicon octicon-link"></span></a>Let</h2>
+
+<p>The <code>let</code> keyword is another way of declaring variables, 
+but with the advantage of restricting the variable to the
+scope of the code block. With the <code>var</code> keyword, the 
+variable always gets hoisted to the top of its scope.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">varTest</span>() {
+  <span class="pl-k">var</span> x <span class="pl-k">=</span> <span class="pl-c1">31</span>;
+  <span class="pl-k">if</span> (<span class="pl-c1">true</span>) {
+    <span class="pl-k">var</span> x <span class="pl-k">=</span> <span class="pl-c1">71</span>;  <span class="pl-c">// same variable!</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(x);  <span class="pl-c">// 71</span>
+  }
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(x);  <span class="pl-c">// 71</span>
+}</pre></div>
+
+<p>If you use <code>let</code> instead of <code>var</code>, the variable value will
+work in it's code block.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">function</span> <span class="pl-en">varTest</span>() {
+  <span class="pl-k">var</span> x <span class="pl-k">=</span> <span class="pl-c1">31</span>;
+  <span class="pl-k">if</span> (<span class="pl-c1">true</span>) {
+    <span class="pl-k">var</span> x <span class="pl-k">=</span> <span class="pl-c1">71</span>;  <span class="pl-c">// same variable!</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(x);  <span class="pl-c">// 71</span>
+  }
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(x);  <span class="pl-c">// 31</span>
+}</pre></div>
+
+<h2>
+<a id="sets-and-weaksets" class="anchor" href="#sets-and-weaksets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sets and WeakSets</h2>
+
+<p>Sets are basically just collections. This object
+comes with built in functions for adding, checking
+and deleting values from that collection. WeakSets are version of sets, but for objects with 
+better garbage collection.   </p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> mySet <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Set</span>([<span class="pl-c1">34</span>, <span class="pl-c1">22</span>, <span class="pl-c1">79</span>]);</pre></div>
+
+<p>You can add a value to your set by using the <code>add()</code> function.</p>
+
+<div class="highlight highlight-source-js"><pre>mySet.<span class="pl-c1">add</span>(<span class="pl-c1">99</span>);</pre></div>
+
+<p>If you want to verify that a <code>Set</code> has a value, 
+you can use the <code>has()</code> function.</p>
+
+<div class="highlight highlight-source-js"><pre>mySet.has(<span class="pl-c1">99</span>); <span class="pl-c">// returns true</span></pre></div>
+
+<p>You can also delete a value from your <code>Set</code> by using the 
+<code>delete</code> function.</p>
+
+<div class="highlight highlight-source-js"><pre>mySet.delete(<span class="pl-c1">99</span>);
+mySet.has(<span class="pl-c1">99</span>); <span class="pl-c">// returns false</span></pre></div>
+
+<h2>
+<a id="maps-and-weakmaps" class="anchor" href="#maps-and-weakmaps" aria-hidden="true"><span class="octicon octicon-link"></span></a>Maps and WeakMaps</h2>
+
+<p>Maps are essentially the same as HashMaps in Java 
+or Dictionaries in C#. It allows you to store collections
+of key/value pairs. This object also comes with built in 
+functions for adding, checking, getting and deleting key/value pairs.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> myMap <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Map</span>([[ <span class="pl-s"><span class="pl-pds">'</span>John<span class="pl-pds">'</span></span>, <span class="pl-c1">34</span>], [<span class="pl-s"><span class="pl-pds">'</span>Bill<span class="pl-pds">'</span></span>, <span class="pl-c1">22</span>], [<span class="pl-s"><span class="pl-pds">'</span>Burt<span class="pl-pds">'</span></span>, <span class="pl-c1">79</span>]);</pre></div>
+
+<p>You can add key value to a map by using the <code>set()</code> function.</p>
+
+<div class="highlight highlight-source-js"><pre>myMap.set(<span class="pl-s"><span class="pl-pds">'</span>Sarah<span class="pl-pds">'</span></span>, <span class="pl-c1">29</span>);</pre></div>
+
+<p>You can also verify if there is a key value pair in your map
+by calling the <code>has(key)</code> function.</p>
+
+<div class="highlight highlight-source-js"><pre>myMap.has(<span class="pl-s"><span class="pl-pds">'</span>Sarah<span class="pl-pds">'</span></span>);</pre></div>
+
+<p>You can return the value for a given key by using 
+the <code>get(key)</code> function.</p>
+
+<div class="highlight highlight-source-js"><pre>myMap.get(<span class="pl-s"><span class="pl-pds">'</span>Sarah<span class="pl-pds">'</span></span>); <span class="pl-c">// returns 29;</span></pre></div>
+
+<h2>
+<a id="generators" class="anchor" href="#generators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generators</h2>
+
+<p>Generator objects are returned by generator functions, 
+and conform to both iterator and the iterable interface.
+You will recognize generator functions by the asterisk (*)
+that follows the <code>function *</code> keyword. These functions
+use the <code>yield</code> keyword to return an iteration
+of the function rather than closing the function.</p>
+
+<p>Once you create a generator object by calling
+the generator function, you can use the <code>next()</code> function
+to return an iteration from the object. That method
+returns a tuple that includes the value and a <code>done</code> boolean
+value to know when the generator is done. </p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">function</span> <span class="pl-en">*getSomeValues</span>() {
+    <span class="pl-k">yield</span> <span class="pl-c1">1</span>;
+    <span class="pl-k">yield</span> <span class="pl-c1">2</span>;
+    <span class="pl-k">yield</span> <span class="pl-c1">3</span>;
+    <span class="pl-k">yield</span> <span class="pl-c1">4</span>;
+    <span class="pl-k">yield</span> <span class="pl-c1">5</span>;
+}
+
+<span class="pl-k">var</span> someValues <span class="pl-k">=</span> getSomeValues();
+
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(someValues.<span class="pl-c1">next</span>()); <span class="pl-c">// yields { value: 1, done: false } </span>
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(someValues.<span class="pl-c1">next</span>()); <span class="pl-c">// yields { value: 2, done: false }</span>
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(someValues.<span class="pl-c1">next</span>()); <span class="pl-c">// yields { value: 3, done: false }</span>
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(someValues.<span class="pl-c1">next</span>()); <span class="pl-c">// yields { value: 4, done: false }</span>
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(someValues.<span class="pl-c1">next</span>()); <span class="pl-c">// yields { value: 5, done: false }</span>
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(someValues.<span class="pl-c1">next</span>()); <span class="pl-c">// yields { value: undefined, done: true }</span></pre></div>
+
+<h2>
+<a id="promises" class="anchor" href="#promises" aria-hidden="true"><span class="octicon octicon-link"></span></a>Promises</h2>
+
+<p>Promises provide a cleaner way of handling asynchronous 
+functionality in Javascript. When you create a Promise
+object, it uses standard methods for handling return 
+values along with errors and exceptions.</p>
+
+<p>You will probably recogize a promise object because several APIs
+currently use this convention by using <code>then()</code> or <code>success()</code>
+for handling results returned from an asynchronous operation.</p>
+
+<p>Exceptions use the <code>catch()</code> functions to handle errors 
+that might occur in your promise.</p>
+
+<p>You can declare a promise by passing an executor function
+or a closure with <code>resolve()</code> and <code>reject()</code> functions. </p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> p <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Promise</span>(<span class="pl-k">function</span>(<span class="pl-smi">resolve</span>, <span class="pl-smi">reject</span>) { ... });</pre></div>
+
+<p>This will provide us a nice cleaner syntax for executing
+asynchronous behavior.</p>
+
+<div class="highlight highlight-source-js"><pre>promise
+   .then(<span class="pl-k">function</span>(<span class="pl-smi">results</span>) { ... })
+   .then(<span class="pl-k">function</span>(<span class="pl-smi">results</span>) { ... })
+   .then(<span class="pl-k">function</span>(<span class="pl-smi">results</span>) { ... })
+   .catch(<span class="pl-k">function</span>(<span class="pl-smi">err</span>) { ... });</pre></div>
+
+<p>Here is an example of a file system operation using standard callbacks</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">var</span> fs <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs<span class="pl-pds">'</span></span>),
+    rootPath <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>C:<span class="pl-cce">\\</span>Users<span class="pl-cce">\\</span>dfekke<span class="pl-cce">\\</span>Documents<span class="pl-cce">\\</span><span class="pl-pds">'</span></span>,
+    ext <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>tiff<span class="pl-pds">'</span></span>,
+    newExt <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>TIF<span class="pl-pds">'</span></span>;
+
+fs.readdir(rootPath, 
+    <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">files</span>) {
+        <span class="pl-k">if</span> (err) {
+            <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-s"><span class="pl-pds">"</span>unable to read directory<span class="pl-pds">"</span></span>);
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">var</span> re <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">RegExp</span>(<span class="pl-s"><span class="pl-pds">"</span>^.*<span class="pl-cce">\\</span>.<span class="pl-pds">"</span></span> <span class="pl-k">+</span> ext <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>$<span class="pl-pds">"</span></span>);
+            <span class="pl-k">for</span> (<span class="pl-k">var</span> file <span class="pl-k">in</span> files) {
+                <span class="pl-k">if</span> (re.<span class="pl-c1">test</span>(files[file])) {
+                    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(files[file]);
+                    <span class="pl-k">var</span> oldPath <span class="pl-k">=</span> rootPath <span class="pl-k">+</span> files[file];
+                    <span class="pl-k">var</span> newPath <span class="pl-k">=</span> rootPath <span class="pl-k">+</span> files[file].<span class="pl-c1">substring</span>(<span class="pl-c1">0</span>, files[file].<span class="pl-c1">length</span> <span class="pl-k">-</span> ext.<span class="pl-c1">length</span>) <span class="pl-k">+</span> newExt;
+                    <span class="pl-en">console</span>.<span class="pl-c1">log</span>(newPath);
+                    fs.rename(oldPath, 
+                                newPath, 
+                                <span class="pl-k">function</span> (<span class="pl-smi">err</span>) {
+                                    <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-s"><span class="pl-pds">"</span>unable to rename file<span class="pl-pds">"</span></span>);
+                    }); 
+                }
+            }   
+        }
+});</pre></div>
+
+<p>Now here is an example of the same functionality using Promises
+with the <a href="http://bluebirdjs.com/">Bluebird</a> npm module.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-s"><span class="pl-pds">"</span>use strict<span class="pl-pds">"</span></span>;
+
+<span class="pl-k">var</span> fs <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>fs<span class="pl-pds">'</span></span>),
+    Promise <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>bluebird<span class="pl-pds">"</span></span>),
+    rootPath <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>C:<span class="pl-cce">\\</span>Users<span class="pl-cce">\\</span>dfekke<span class="pl-cce">\\</span>Documents<span class="pl-cce">\\</span><span class="pl-pds">'</span></span>,
+    ext <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>tiff<span class="pl-pds">'</span></span>,
+    newExt <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>TIF<span class="pl-pds">'</span></span>;
+
+Promise.promisifyAll(fs);
+
+fs.readdirAsync(rootPath).then((<span class="pl-smi">files</span>) <span class="pl-k">=&gt;</span> {
+    <span class="pl-k">var</span> re <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">RegExp</span>(<span class="pl-s"><span class="pl-pds">"</span>^.*<span class="pl-cce">\\</span>.<span class="pl-pds">"</span></span> <span class="pl-k">+</span> ext <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>$<span class="pl-pds">"</span></span>);
+    files.forEach(file <span class="pl-k">=&gt;</span> {
+        <span class="pl-k">if</span> (re.<span class="pl-c1">test</span>(file)) {
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(file);
+            <span class="pl-k">var</span> oldPath <span class="pl-k">=</span> rootPath <span class="pl-k">+</span> file;
+            <span class="pl-k">var</span> newPath <span class="pl-k">=</span> rootPath <span class="pl-k">+</span> file.<span class="pl-c1">substring</span>(<span class="pl-c1">0</span>, file.<span class="pl-c1">length</span> <span class="pl-k">-</span> ext.<span class="pl-c1">length</span>) <span class="pl-k">+</span> newExt;
+            <span class="pl-en">console</span>.<span class="pl-c1">log</span>(newPath);
+            fs.renameAsync(oldPath, newPath)
+                .catch(err <span class="pl-k">=&gt;</span> <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-s"><span class="pl-pds">"</span>unable to rename file<span class="pl-pds">"</span></span>) );
+        }
+    });
+}).catch((<span class="pl-smi">err</span>) <span class="pl-k">=&gt;</span> <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-s"><span class="pl-pds">"</span>unable to read directory<span class="pl-pds">"</span></span>));</pre></div>
+
+<h2>
+<a id="lexical-scoping-for-this-variable" class="anchor" href="#lexical-scoping-for-this-variable" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lexical scoping for <code>this</code> variable</h2>
+
+<p>It is very common when inner functions are used in 
+function objects to see new variables declared to pass the
+<code>this</code> variable because of the way javascript scopes the 
+<code>this</code> variable.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> that <span class="pl-k">=</span> <span class="pl-v">this</span>;</pre></div>
+
+<p>Now with ES2015 the <code>this</code> variable can be retained if 
+you use arrow functions <code>=&gt;</code>. This also provides a 
+nice shorthand when you need to specify closure or
+inner functions.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> bob <span class="pl-k">=</span> {
+  _name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Bob<span class="pl-pds">"</span></span>,
+  _friends<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>Tommy<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Richard<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Susan<span class="pl-pds">'</span></span>],
+  <span class="pl-en">printFriends</span>() {
+    <span class="pl-c">// Here there is no need to hoist the this object because it can be scoped in the lambda.</span>
+    <span class="pl-v">this</span>._friends.forEach(f <span class="pl-k">=&gt;</span>
+      <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">`</span><span class="pl-s1"><span class="pl-pse">${</span><span class="pl-v">this</span>._name<span class="pl-pse">}</span></span>  knows  <span class="pl-s1"><span class="pl-pse">${</span>f<span class="pl-pse">}</span></span><span class="pl-pds">`</span></span>));
+  }
+};
+
+bob.printFriends();</pre></div>
+
+<h2>
+<a id="spread-operator-available-in-node-50" class="anchor" href="#spread-operator-available-in-node-50" aria-hidden="true"><span class="octicon octicon-link"></span></a>...Spread operator (available in Node 5.0)</h2>
+
+<p>The spread operator denoted by three periods at the 
+beginning of a array (<code>...arr</code>) provides a nice shorthand 
+for concatinating arrays together in ES2015. Unfortunately 
+this feature did not get put into the language until 
+version 4.6 of V8, so we will not see it without 
+using Node 5.0 or later.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">let</span> inner <span class="pl-k">=</span> [<span class="pl-c1">3</span>, <span class="pl-c1">4</span>];
+<span class="pl-k">let</span> merged <span class="pl-k">=</span> [<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>, ...inner, <span class="pl-c1">5</span>]; </pre></div>
+
+<p>Copyright 2015 JaxNode</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/jaxnode/node4es2015">Node 4.X ES2015 Features</a> is maintained by <a href="https://github.com/jaxnode">jaxnode</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
