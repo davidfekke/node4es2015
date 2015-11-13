@@ -1,7 +1,8 @@
 # Repo for the November JaxNode meetup examples.
 
 This repo contains the examples from the JaxNode November 2015 presentation.
-
+You can view the [slides](http://slides.com/davidfekke/node_4#/  target="blank") for this presentation
+at [slides.com/davidfekke/node_4](http://slides.com/davidfekke/node_4#/  target="blank").
 
 ## Classes
 
