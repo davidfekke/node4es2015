@@ -318,7 +318,7 @@ with the <a href="http://bluebirdjs.com/">Bluebird</a> npm module.</p>
 
 Promise.promisifyAll(fs);
 
-fs.readdirAsync(rootPath).then((<span class="pl-smi">files</span>)<span class="pl-k"> =&gt;</span> {
+fs.readdirAsync(rootPath).then((<span class="pl-smi">files</span>) <span class="pl-k">=&gt;</span> {
     <span class="pl-k">var</span> re <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">RegExp</span>(<span class="pl-s"><span class="pl-pds">"</span>^.*<span class="pl-cce">\\</span>.<span class="pl-pds">"</span></span> <span class="pl-k">+</span> ext <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>$<span class="pl-pds">"</span></span>);
     files.forEach(file <span class="pl-k">=&gt;</span> {
         <span class="pl-k">if</span> (re.<span class="pl-c1">test</span>(file)) {
@@ -330,7 +330,7 @@ fs.readdirAsync(rootPath).then((<span class="pl-smi">files</span>)<span class="p
                 .catch(err <span class="pl-k">=&gt;</span> <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-s"><span class="pl-pds">"</span>unable to rename file<span class="pl-pds">"</span></span>) );
         }
     });
-}).catch((<span class="pl-smi">err</span>)<span class="pl-k"> =&gt;</span> <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-s"><span class="pl-pds">"</span>unable to read directory<span class="pl-pds">"</span></span>));</pre></div>
+}).catch((<span class="pl-smi">err</span>) <span class="pl-k">=&gt;</span> <span class="pl-en">console</span>.<span class="pl-c1">error</span>(<span class="pl-s"><span class="pl-pds">"</span>unable to read directory<span class="pl-pds">"</span></span>));</pre></div>
 
 <h2>
 <a id="lexical-scoping-for-this-variable" class="anchor" href="#lexical-scoping-for-this-variable" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lexical scoping for <code>this</code> variable</h2>
@@ -376,7 +376,6 @@ using Node 5.0 or later.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/jaxnode/node4es2015">Node 4.X ES2015 Features</a> is maintained by <a href="https://github.com/jaxnode">jaxnode</a>.</span>
-
       </footer>
 
     </section>
